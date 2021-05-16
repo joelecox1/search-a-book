@@ -1,22 +1,26 @@
 {
-  "name": "server",
+  "name": "search-a-book",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "search-a-book",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "heroku-postbuild": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelecox1/search-a-book"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.10"
+    "if-env": "^1.0.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "concurrently": "^6.0.2"
   }
 }
